@@ -2,14 +2,19 @@ package com.jnu.mcd.ddobagi.domains.help.persistence;
 
 
 import com.jnu.mcd.ddobagi.common.persistence.BaseEntity;
+import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpRequest;
 import com.jnu.mcd.ddobagi.domains.help.application.model.HelpStatus;
+import com.jnu.mcd.ddobagi.domains.help.application.model.HelpType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,8 +54,38 @@ public class Help extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_member_id", nullable = false)
     private Long memberId;
 
+    @Column(name = ENTITY_PREFIX + "_price", nullable = false)
+    private Long price;
+
+    @Column(name = ENTITY_PREFIX + "_address", nullable = false)
+    private String address;
+
+    @Column(name = ENTITY_PREFIX + "_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private HelpType helpType;
+
     @Column(name = ENTITY_PREFIX + "_status", nullable = false)
     @Builder.Default
     private HelpStatus helpStatus = HelpStatus.NON_MATCH;
+
+    @Column(name = ENTITY_PREFIX + "_week", nullable = true)
+    private String weeks;
+
+    public static Help of(Long memberId, HelpRequest request){
+        return Help.builder()
+                .helpType(HelpType.fromString(request.helpType()))
+                .content(request.content())
+                .memberId(memberId)
+                .price(request.price())
+                .address(request.address())
+                .weeks(weekToString(request.dayOfWeek()))
+                .title(request.title())
+                .build();
+    }
+
+    private static String weekToString(Set<String> weeks){
+        return weeks.stream()
+                .reduce("", (identity, week) -> identity +","+week);
+    }
 
 }

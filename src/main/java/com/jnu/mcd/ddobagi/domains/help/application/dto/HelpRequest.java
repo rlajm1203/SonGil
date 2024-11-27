@@ -5,10 +5,9 @@ import java.util.Set;
 public record HelpRequest(
         String helpType,
         Set<String> dayOfWeek,
-        String elderlyName,
-        String phone,
-        String birthDay,
         String address,
-        String content
+        String content,
+        String title,
+        Long price
 ) {
 }
