@@ -1,5 +1,7 @@
 package com.jnu.mcd.ddobagi.domains.help.application.model;
 
+import java.util.Arrays;
+
 public enum HelpStatus {
     
     NON_MATCH("nonMatch"),
@@ -13,7 +15,10 @@ public enum HelpStatus {
     }
 
     public static HelpStatus fromString(String status) {
-        return HelpStatus.valueOf(status);
+        return Arrays.stream(HelpStatus.values())
+                .filter(helpStatus -> helpStatus.status.equals(status))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown help status: " + status));
     }
 
     @Override

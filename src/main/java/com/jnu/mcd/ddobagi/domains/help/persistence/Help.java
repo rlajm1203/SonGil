@@ -89,4 +89,8 @@ public class Help extends BaseEntity {
                 .reduce("", (identity, week) -> identity +","+week);
     }
 
+    public void updateStatus(String status){
+        this.helpStatus = HelpStatus.fromString(status);
+    }
+
 }

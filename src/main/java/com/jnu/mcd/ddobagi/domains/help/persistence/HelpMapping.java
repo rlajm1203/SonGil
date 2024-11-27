@@ -1,5 +1,6 @@
 package com.jnu.mcd.ddobagi.domains.help.persistence;
 
+import com.jnu.mcd.ddobagi.common.persistence.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -30,7 +31,7 @@ import org.hibernate.annotations.Where;
 )
 @SQLDelete(sql = "UPDATE help_mapping SET is_deleted=true WHERE help_mapping_id=?")
 @Where(clause = "is_deleted=false")
-public class HelpMapping {
+public class HelpMapping extends BaseEntity {
 
     public static final String ENTITY_PREFIX = "help_mapping";
 
