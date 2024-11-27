@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    @Query("SELECT m FROM Member m WHERE m.loginId=:loginId")
+    @Query(value = "SELECT m FROM Member m WHERE m.loginId=:loginId")
     Optional<Member> findByLoginId(@Param("loginId") String loginId);
 
     @Query("SELECT m FROM Member m ORDER BY m.memberId ASC ")

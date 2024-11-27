@@ -2,22 +2,101 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=700, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>또바기 - 어르신 생활 지원 서비스</title>
-    <link rel="stylesheet" href="/css/signup.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손길 - 어르신 생활 지원 서비스</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            background-color: #ff9f43;
+            color: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0;
+        }
+        .services {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .services h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .service {
+            background-color: white;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        .service h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ff6f61;
+        }
+        .join {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .join-option {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+        }
+        .join-option h2 {
+            font-size: 1.5rem;
+            color: #4caf50;
+        }
+        .join-option p {
+            font-size: 1rem;
+            margin: 10px 0 20px;
+        }
+        .join-option button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .join-option button:hover {
+            background-color: #388e3c;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <!-- Header Section -->
     <header>
-        <h1>또바기</h1>
+        <h1>손길</h1>
         <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
-        <div class="buttons">
-            <button onclick="location.href='#join-elderly'">노인으로 가입</button>
-            <button onclick="location.href='#join-helper'">도우미로 가입</button>
-        </div>
     </header>
 
     <!-- Services Section -->
@@ -34,19 +113,27 @@
     </section>
 
     <!-- Join Section -->
-    <section class="join" id="join">
-        <div class="join-option" id="join-elderly">
+    <section class="join">
+        <div class="join-option">
             <h2>노인으로 가입</h2>
             <p>간단한 가입 절차로 도움을 요청하고, 필요한 일상 서비스를 받아보세요.</p>
             <button onclick="signup('elderly')">가입하기</button>
         </div>
-        <div class="join-option" id="join-helper">
+        <div class="join-option">
             <h2>도우미로 가입</h2>
             <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>
             <button onclick="signup('helper')">가입하기</button>
         </div>
     </section>
 </div>
-<script src="/js/script/signup.js"></script>
+<script>
+    function signup(type) {
+        if (type === 'elderly') {
+            window.location.href = '/view/elderly-signup';
+        } else if (type === 'helper') {
+            window.location.href = '/view/helper-signup';
+        }
+    }
+</script>
 </body>
 </html>

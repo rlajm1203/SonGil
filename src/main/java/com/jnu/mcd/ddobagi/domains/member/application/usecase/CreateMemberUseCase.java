@@ -7,4 +7,6 @@ public interface CreateMemberUseCase {
 
     Long create(MemberSignUpRequest request);
 
+    void duplicationCheck(String id);
+
 }

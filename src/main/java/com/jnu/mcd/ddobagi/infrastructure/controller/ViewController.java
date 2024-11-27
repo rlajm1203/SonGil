@@ -5,17 +5,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/view")
+@RequestMapping("/")
 public class ViewController {
 
-    @GetMapping("/signUp")
+    private static final String VIEW = "/view";
+
+    @GetMapping
+    public String main(){
+        return "index";
+    }
+
+    @GetMapping(VIEW+"/signup")
     public String signUp(){
         return "signUp.html";
     }
 
-    @GetMapping("/index")
+    @GetMapping(VIEW+"/index")
     public String index(){
         return "index.html";
+    }
+
+    @GetMapping(VIEW+"/elderly-signup")
+    public String elderSignup(){
+        return "signUp-elderly.html";
+    }
+
+    @GetMapping(VIEW+"/helper-signup")
+    public String helperSignup(){
+        return "signUp-helper.html";
     }
 
 

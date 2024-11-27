@@ -17,6 +17,7 @@ import com.jnu.mcd.ddobagi.domains.member.application.usecase.ReissueMemberUseCa
 import com.jnu.mcd.ddobagi.domains.member.persistence.Member;
 import com.jnu.mcd.ddobagi.domains.member.persistence.MemberRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -88,5 +89,12 @@ public class MemberService implements
         return memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new RuntimeException("member Not Found"));
 
+    }
+
+    @Override
+    public void duplicationCheck(String loginId) {
+        Optional<Member>  member = memberRepository.findByLoginId(loginId);
+
+        if(member.isPresent()) throw new RuntimeException("사용할 수 없는 아이디입니다.");
     }
 }

@@ -73,6 +73,15 @@ public class MemberController {
                 HttpStatus.OK, MessageCode.LOGIN);
     }
 
+    @PostMapping("/auth/dupl-check")
+    public ApiResponse<SuccessBody<String>> duplicationCheck(
+            @RequestBody String loginId
+    ) {
+        createMemberUseCase.duplicationCheck( loginId );
+        
+        return ApiResponseGenerator.success("사용가능한 아이디 입니다.", HttpStatus.OK, MessageCode.GET);
+    }
+
     @PostMapping("/auth/signup")
     public ApiResponse<SuccessBody<MemberSignUpResponse>> signup(@RequestBody MemberSignUpRequest request) {
         Long memberId = createMemberUseCase.create( request );

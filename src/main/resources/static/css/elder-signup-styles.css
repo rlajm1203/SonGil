@@ -1,0 +1,125 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+/* 컨테이너 */
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: #FF8C00;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* 폼 섹션 */
+.form-section {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #FF8C00;
+    outline: none;
+}
+
+/* 버튼 스타일 */
+.form-actions {
+    text-align: center;
+}
+
+.form-actions button {
+    width: 100%;
+    background-color: #FF8C00;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-actions button:hover {
+    background-color: #FF7F50;
+}
+
+/* 중복확인 버튼 스타일 */
+#check-username {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF8C42;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#check-username:hover {
+    background-color: #FF7A29;
+}
+
+#check-username:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.message {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.message.success {
+    color: green;
+}
+
+.message.error {
+    color: red;
+}

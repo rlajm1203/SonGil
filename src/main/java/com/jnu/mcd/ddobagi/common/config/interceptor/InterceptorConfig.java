@@ -16,7 +16,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor( authInfoInterceptor )
                 .addPathPatterns( "/**" )
-                .excludePathPatterns("/api/v1/auth/login", "/api/v1/auth/logout", "/api/v1/auth/signup", "/view/**", "/images/**", "/css/**", "/static/**");
+                .excludePathPatterns("/api/v1/auth/**", "/view/**", "/images/**", "/css/**", "/static/**", "/js/**", "/");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
