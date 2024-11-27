@@ -7,6 +7,8 @@ import com.jnu.mcd.ddobagi.domains.member.application.model.MemberType;
 import com.jnu.mcd.ddobagi.domains.member.application.support.EncryptHelper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -59,6 +61,7 @@ public class Member extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_phone_number", nullable = true)
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = ENTITY_PREFIX + "_type", nullable = false)
     private MemberType memberType;
 
@@ -70,6 +73,7 @@ public class Member extends BaseEntity {
                 .email(request.getEmail())
                 .password(EncryptHelper.encrypt(password))
                 .name(request.getName())
+                .memberType(MemberType.findMemberType(request.getMemberType()))
                 .build();
     }
 

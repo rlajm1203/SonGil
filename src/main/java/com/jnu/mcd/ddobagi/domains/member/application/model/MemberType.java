@@ -15,7 +15,7 @@ public enum MemberType {
 
     private String type;
     
-    public static MemberType getMemberType(String type) {
+    public static MemberType findMemberType(String type) {
         return Arrays.stream(MemberType.values())
                 .filter(memberType -> memberType.getType().equals(type))
                 .findFirst()

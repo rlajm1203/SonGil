@@ -1,5 +1,6 @@
 package com.jnu.mcd.ddobagi.domains.member.application.service;
 
+import com.jnu.mcd.ddobagi.common.interfaces.RequesterInfo;
 import com.jnu.mcd.ddobagi.domains.member.application.dto.MemberLoginRequest;
 import com.jnu.mcd.ddobagi.domains.member.application.dto.MemberSignUpRequest;
 import com.jnu.mcd.ddobagi.domains.member.application.support.EncryptHelper;
@@ -9,6 +10,7 @@ import com.jnu.mcd.ddobagi.domains.member.application.token.TokenModel;
 import com.jnu.mcd.ddobagi.domains.member.application.token.TokenProvider;
 import com.jnu.mcd.ddobagi.domains.member.application.token.TokenResolver;
 import com.jnu.mcd.ddobagi.domains.member.application.usecase.CreateMemberUseCase;
+import com.jnu.mcd.ddobagi.domains.member.application.usecase.GetMemberUseCase;
 import com.jnu.mcd.ddobagi.domains.member.application.usecase.LoginMemberUseCase;
 import com.jnu.mcd.ddobagi.domains.member.application.usecase.LogoutMemberUseCase;
 import com.jnu.mcd.ddobagi.domains.member.application.usecase.ReissueMemberUseCase;
@@ -24,9 +26,11 @@ public class MemberService implements
         CreateMemberUseCase,
         LoginMemberUseCase,
         ReissueMemberUseCase,
-        LogoutMemberUseCase {
+        LogoutMemberUseCase,
+        GetMemberUseCase {
 
     private final MemberRepository memberRepository;
+    private final RequesterInfo requesterInfo;
     private final TokenGenerator tokenGenerator;
     private final TokenResolver tokenResolver;
     private final TokenProvider tokenProvider;
@@ -75,5 +79,14 @@ public class MemberService implements
         
         return members.stream().map(Member::getLoginId)
                 .anyMatch(id -> id.equals(loginId));
+    }
+
+    @Override
+    public Member getMember() {
+        Long memberId = requesterInfo.getMemberId();
+
+        return memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new RuntimeException("member Not Found"));
+
     }
 }
