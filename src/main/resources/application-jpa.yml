@@ -12,7 +12,7 @@ spring:
     driver-class-name: ${DB_DRIVER_CLASS}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true

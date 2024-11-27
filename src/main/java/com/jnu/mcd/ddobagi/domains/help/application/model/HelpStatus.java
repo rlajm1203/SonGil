@@ -15,5 +15,10 @@ public enum HelpStatus {
     public static HelpStatus fromString(String status) {
         return HelpStatus.valueOf(status);
     }
+
+    @Override
+    public String toString() {
+        return status;
+    }
     
 }

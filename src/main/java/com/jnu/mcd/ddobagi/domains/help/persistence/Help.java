@@ -84,6 +84,7 @@ public class Help extends BaseEntity {
     }
 
     private static String weekToString(Set<String> weeks){
+        if(weeks == null) return null;
         return weeks.stream()
                 .reduce("", (identity, week) -> identity +","+week);
     }
