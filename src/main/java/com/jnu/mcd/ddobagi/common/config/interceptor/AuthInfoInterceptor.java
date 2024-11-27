@@ -1,8 +1,8 @@
 package com.jnu.mcd.ddobagi.common.config.interceptor;
 
-import com.starlight.moonshield.common.utils.AuthInfo;
-import com.starlight.moonshield.domains.member.application.support.token.extractor.TokenExtractor;
-import com.starlight.moonshield.domains.member.application.token.TokenResolver;
+import com.jnu.mcd.ddobagi.common.utils.AuthInfo;
+import com.jnu.mcd.ddobagi.domains.member.application.support.token.extractor.TokenExtractor;
+import com.jnu.mcd.ddobagi.domains.member.application.token.TokenResolver;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Qualifier;

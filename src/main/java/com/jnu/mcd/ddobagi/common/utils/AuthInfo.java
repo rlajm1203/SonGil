@@ -1,4 +1,4 @@
-package com.jnu.mcd.ddobagi.common.util;
+package com.jnu.mcd.ddobagi.common.utils;
 
 import com.jnu.mcd.ddobagi.common.interfaces.RequesterInfo;
 import org.springframework.stereotype.Component;

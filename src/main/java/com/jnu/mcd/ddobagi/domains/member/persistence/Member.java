@@ -43,12 +43,6 @@ public class Member extends BaseEntity {
     @Column(name = ENTITY_PREFIX + "_id", nullable = false)
     private Long memberId;
 
-    @Column(name = ENTITY_PREFIX + "_organization", nullable = true)
-    private String organization;
-
-    @Column(name = ENTITY_PREFIX + "_email", nullable = true)
-    private String email;
-
     @Column(name = ENTITY_PREFIX + "_name", nullable = false)
     private String name;
 
@@ -70,8 +64,8 @@ public class Member extends BaseEntity {
 
         return Member.builder()
                 .loginId(request.getId())
-                .email(request.getEmail())
                 .password(EncryptHelper.encrypt(password))
+                .phoneNumber(request.getProtectorPhoneNumber())
                 .name(request.getName())
                 .memberType(MemberType.findMemberType(request.getMemberType()))
                 .build();
