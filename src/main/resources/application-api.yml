@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: api
+
+cors:
+  allow-origin:
+    urls: ${CORS_URL}
+
+token:
+  cookie:
+    domain: ${COOKIE_TOKEN_DOMAIN}
+    path: ${COOKIE_TOKEN_PATH}
+    sameSite: ${COOKIE_TOKEN_SAMESITE}
+    maxAge: ${COOKIE_TOKEN_MAXAGE}
+    httpOnly: ${COOKIE_TOKEN_HTTPONLY}
+    secure: ${COOKIE_TOKEN_SECURE}

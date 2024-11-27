@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: MoonShield
+
+  profiles:
+    group:
+      local:
+        - ai
+        - jpa
+        - api
+        - token
+        - ai
+    active: local
