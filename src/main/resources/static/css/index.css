@@ -90,7 +90,7 @@ header p {
 #user-info a:hover {
     text-decoration: underline;
 }
-.modal {
+.user-info-modal {
     position: absolute;
     top: 25px; /* 사용자 이름 아래로 약간 내려서 표시 */
     right: 0;
@@ -104,7 +104,7 @@ header p {
     text-align: center;
 }
 
-.modal-content h2 {
+.user-info-modal-content h2 {
     font-size: 1rem;
     margin-bottom: 10px;
     color: #333;
