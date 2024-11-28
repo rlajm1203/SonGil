@@ -1,42 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("login-form");
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // 기본 폼 제출 방지
+    const id = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
+    const loginData = { id, password };
 
-        // 요청 데이터 준비
-        const requestData = {
-            id: username,
-            password: password,
-        };
-
-        // 서버로 로그인 요청
-        fetch("http://localhost:8080/api/v1/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
+    fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('로그인 실패');
+            return response.json();
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("로그인 실패");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                alert("로그인 성공");
-                // Access Token 저장 (옵션)
-                localStorage.setItem("accessToken", data.accessToken);
-                // 메인 페이지로 리디렉션
-                window.location.href = "/";
-            })
-            .catch((error) => {
-                console.error("로그인 요청 중 오류 발생:", error);
-                alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-            });
-    });
+        .then(data => {
+            if (data.accessToken) {
+                localStorage.setItem('accessToken', data.accessToken);
+                alert('로그인 성공!');
+                window.location.href = '/view/index';
+            } else {
+                throw new Error('Access Token이 없습니다.');
+            }
+        })
+        .catch(error => {
+            alert('로그인에 실패했습니다. 다시 시도해주세요.');
+            console.error('오류:', error);
+        });
 });

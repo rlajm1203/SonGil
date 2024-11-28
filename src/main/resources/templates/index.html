@@ -34,10 +34,14 @@
             font-size: 1.2rem;
             margin: 10px 0 0;
         }
-        .login-btn {
+        .btn-group {
             position: absolute;
             top: 20px;
             right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn-group a {
             background-color: white;
             color: #ff9f43;
             border: none;
@@ -47,8 +51,9 @@
             border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
+            text-align: center;
         }
-        .login-btn:hover {
+        .btn-group a:hover {
             background-color: #ffe0b2;
         }
         .services {
@@ -115,7 +120,10 @@
     <header>
         <h1>손길</h1>
         <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
-        <a class="login-btn" href="/view/login">로그인</a>
+        <div class="btn-group">
+            <a href="/view/login">로그인</a>
+            <a href="/view/signup">회원가입</a>
+        </div>
     </header>
 
     <!-- Services Section -->
@@ -131,28 +139,28 @@
         </div>
     </section>
 
-    <!-- Join Section -->
-    <section class="join">
-        <div class="join-option">
-            <h2>어르신으로 가입</h2>
-            <p>간단한 가입 절차로 도움을 요청하고, 필요한 일상 서비스를 받아보세요.</p>
-            <button onclick="signup('elderly')">가입하기</button>
-        </div>
-        <div class="join-option">
-            <h2>도우미로 가입</h2>
-            <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>
-            <button onclick="signup('helper')">가입하기</button>
-        </div>
-    </section>
+<!--    &lt;!&ndash; Join Section &ndash;&gt;-->
+<!--    <section class="join">-->
+<!--        <div class="join-option">-->
+<!--            <h2>어르신으로 가입</h2>-->
+<!--            <p>간단한 가입 절차로 도움을 요청하고, 필요한 일상 서비스를 받아보세요.</p>-->
+<!--            <button onclick="signup('elderly')">가입하기</button>-->
+<!--        </div>-->
+<!--        <div class="join-option">-->
+<!--            <h2>도우미로 가입</h2>-->
+<!--            <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>-->
+<!--            <button onclick="signup('helper')">가입하기</button>-->
+<!--        </div>-->
+<!--    </section>-->
 </div>
 <script>
-    function signup(type) {
-        if (type === 'elderly') {
-            window.location.href = '/view/elderly-signup';
-        } else if (type === 'helper') {
-            window.location.href = '/view/helper-signup';
-        }
-    }
+    // function signup(type) {
+    //     if (type === 'elderly') {
+    //         window.location.href = '/view/elderly-signup';
+    //     } else if (type === 'helper') {
+    //         window.location.href = '/view/helper-signup';
+    //     }
+    // }
 </script>
 </body>
 </html>
