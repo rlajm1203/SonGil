@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,6 +44,16 @@ public class HelpController {
         OnceHelpResponse response = helpService.getHelp(helpId);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.GET);
+    }
+
+    @GetMapping
+    public ApiResponse<ApiResponseBody.SuccessBody<Void>> getHelps(
+            @RequestParam(value = "page", required = false) int page,
+            @RequestParam(value = "size", required = false) int size
+    ){
+
+        //TODO: 조회 작성
+        return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.GET);
     }
 
 }

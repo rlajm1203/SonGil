@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도움 요청하기</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      max-width: 768px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    /* 모달 기본 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: left;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .modal-content button {
+      background-color: #ff9f43;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .modal-content button:hover {
+      background-color: #e67e22;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.9rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      border-color: #ff9f43;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>도움 요청하기</h1>
+  <button onclick="openMainModal()" style="background-color: #ff9f43; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 1rem;">도움 요청하기</button>
+</div>
+
+<!-- 메인 모달 -->
+<div id="main-modal" class="modal">
+  <div class="modal-content">
+    <h2>어떤 도움을 요청하시겠습니까?</h2>
+    <button onclick="openOnceModal()">도움 한 번 요청하기</button>
+    <button onclick="alert('장기 도움 요청하기는 아직 구현되지 않았습니다.')">장기 도움 요청하기</button>
+  </div>
+</div>
+
+<!-- 도움 한 번 요청하기 모달 -->
+<div id="once-modal" class="modal">
+  <div class="modal-content">
+    <h2>도움 한 번 요청하기</h2>
+    <form id="help-form">
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+      </div>
+      <div class="form-group">
+        <label for="address">주소</label>
+        <input type="text" id="address" name="address" placeholder="주소를 입력하세요" required>
+      </div>
+      <div class="form-group">
+        <label for="content">내용</label>
+        <input type="text" id="content" name="content" placeholder="내용을 입력하세요" required>
+      </div>
+      <div class="form-group">
+        <label for="price">보상금</label>
+        <input type="number" id="price" name="price" placeholder="보상금을 입력하세요" required>
+      </div>
+      <button type="submit">요청하기</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // 메인 모달 열기
+  function openMainModal() {
+    document.getElementById('main-modal').classList.add('active');
+  }
+
+  // 메인 모달 닫기
+  function closeMainModal() {
+    document.getElementById('main-modal').classList.remove('active');
+  }
+
+  // 도움 한 번 요청하기 모달 열기
+  function openOnceModal() {
+    closeMainModal();
+    document.getElementById('once-modal').classList.add('active');
+  }
+
+  // 도움 한 번 요청하기 모달 닫기
+  function closeOnceModal() {
+    document.getElementById('once-modal').classList.remove('active');
+  }
+
+  // 도움 요청하기 폼 제출 처리
+  document.getElementById('help-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const helpType = 'once';
+    const title = document.getElementById('title').value;
+    const address = document.getElementById('address').value;
+    const content = document.getElementById('content').value;
+    const price = parseInt(document.getElementById('price').value, 10);
+
+    const data = {
+      helpType,
+      dayOfWeek: ["월", "화", "수"], // 고정값으로 설정
+      title,
+      address,
+      content,
+      price
+    };
+
+    fetch('http://localhost:8080/api/v1/helps', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+            .then(response => {
+              if (!response.ok) throw new Error('요청 실패');
+              return response.json();
+            })
+            .then(result => {
+              alert('도움 요청이 성공적으로 등록되었습니다.');
+              closeOnceModal(); // 모달 닫기
+            })
+            .catch(error => {
+              console.error('오류:', error);
+              alert('도움 요청에 실패했습니다. 다시 시도해주세요.');
+            });
+  });
+</script>
+</body>
+</html>

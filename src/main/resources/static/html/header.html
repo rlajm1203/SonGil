@@ -1,0 +1,21 @@
+<!-- header.html -->
+<header>
+  <h1>손길</h1>
+  <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
+  <div class="btn-group" id="auth-section">
+    <!-- 로그인 및 회원가입 버튼 -->
+    <a href="/view/login" id="login-btn" class="auth-btn">로그인</a>
+    <a href="/view/signup" id="signup-btn" class="auth-btn">회원가입</a>
+
+    <!-- 사용자 정보 표시 -->
+    <div id="user-info" style="position: relative; display: none;">
+      <span id="member-name" onclick="toggleModal()" style="cursor: pointer; text-decoration: underline;">안녕하세요, 김종민님!</span>
+      <div id="logout-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <h2>로그아웃 하시겠습니까?</h2>
+          <button class="logout-btn" onclick="logout()">로그아웃</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
