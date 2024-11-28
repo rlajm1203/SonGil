@@ -35,5 +35,10 @@ public class ViewController {
         return "signUp-helper.html";
     }
 
+    @GetMapping(VIEW+"/login")
+    public String login(){
+        return "login.html";
+    }
+
 
 }

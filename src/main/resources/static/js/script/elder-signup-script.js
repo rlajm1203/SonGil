@@ -1,105 +1,91 @@
-document.getElementById("signup-form").addEventListener("submit", (event) => {
-    event.preventDefault(); // 기본 폼 제출 방지
-
-    // 폼 데이터 가져오기
-    const id = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
-    const email = document.getElementById("email").value;
-    const name = document.getElementById("name").value;
-    const protectorPhoneNumber = document.getElementById("protector-phone").value;
-
-    // 비밀번호 확인 검증
-    if (password !== confirmPassword) {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-    }
-
-    // JSON 데이터 생성
-    const requestBody = {
-        id: id,
-        password: password,
-        email: email,
-        name: name,
-        memberType: "elderly", // 고정값
-        protectorPhoneNumber: protectorPhoneNumber
-    };
-
-    // HTTP POST 요청
-    fetch("http://localhost:8080/api/v1/auth/signup", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestBody)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return response.json().then(err => { throw new Error(err.message); });
-            }
-        })
-        .then(data => {
-            alert("회원가입 성공: " + data.message);
-            // 메인 페이지로 리다이렉트
-            window.location.href = "/";
-        })
-        .catch(error => {
-            console.error(error);
-            alert("회원가입 중 오류가 발생했습니다: " + error.message);
-        });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("signup-form");
+    const submitButton = document.getElementById("submit-button");
     const usernameInput = document.getElementById("username");
-    const checkButton = document.getElementById("check-username");
-    const messageDiv = document.getElementById("username-message");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const emailInput = document.getElementById("email");
+    const nameInput = document.getElementById("name");
+    const protectorPhoneInput = document.getElementById("protector-phone");
+    const usernameMessage = document.getElementById("username-message");
 
-    // 중복체크 버튼 클릭 이벤트
-    checkButton.addEventListener("click", function () {
-        const username = usernameInput.value.trim(); // 입력값 가져오기
-
-        // 입력값이 비어있는 경우
+    // 아이디 중복 확인 함수
+    window.checkUsername = function () {
+        const username = usernameInput.value.trim();
         if (!username) {
-            showMessage("아이디를 입력해주세요.", "error");
+            usernameMessage.textContent = "아이디를 입력해주세요.";
+            usernameMessage.style.color = "red";
             return;
         }
 
-        // 버튼 비활성화 (중복체크 요청 중)
-        checkButton.disabled = true;
-
-        // HTTP POST 요청
         fetch("http://localhost:8080/api/v1/auth/dupl-check", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: username, // JSON 형식으로 전달
+            body: JSON.stringify(username),
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.status === "500" || data.code === "500") {
-                    // 사용할 수 없는 아이디인 경우
-                    showMessage(data.message || "사용할 수 없는 아이디입니다.", "error");
+                if (data.status === "500") {
+                    usernameMessage.textContent = data.message; // 사용 불가능한 아이디 메시지
+                    usernameMessage.style.color = "red";
+                    submitButton.disabled = true;
                 } else {
-                    // 아이디 사용 가능
-                    showMessage("사용 가능한 아이디입니다.", "success");
+                    usernameMessage.textContent = "사용 가능한 아이디입니다.";
+                    usernameMessage.style.color = "green";
+                    submitButton.disabled = false;
                 }
             })
             .catch((error) => {
-                console.error("중복체크 요청 중 오류 발생:", error);
-                showMessage("서버와의 통신 중 오류가 발생했습니다.", "error");
+                console.error("아이디 중복 확인 중 오류 발생:", error);
+                usernameMessage.textContent = "오류가 발생했습니다. 다시 시도해주세요.";
+                usernameMessage.style.color = "red";
+                submitButton.disabled = true;
+            });
+    };
+
+    // 폼 제출 핸들러
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // 비밀번호 확인
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            return;
+        }
+
+        // 회원가입 요청 데이터 생성
+        const requestData = {
+            id: usernameInput.value.trim(),
+            password: passwordInput.value.trim(),
+            email: emailInput.value.trim(),
+            name: nameInput.value.trim(),
+            memberType: "elderly", // 고정 값
+            protectorPhoneNumber: protectorPhoneInput.value.trim(),
+        };
+
+        // 회원가입 요청 전송
+        fetch("http://localhost:8080/api/v1/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("회원가입 요청에 실패했습니다.");
+                }
+                return response.json();
             })
-            .finally(() => {
-                // 버튼 다시 활성화
-                checkButton.disabled = false;
+            .then((data) => {
+                alert("회원가입이 완료되었습니다.");
+                window.location.href = "/"; // 메인 페이지로 리디렉션
+            })
+            .catch((error) => {
+                console.error("회원가입 실패:", error);
+                alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
             });
     });
-
-    // 메시지 표시 함수
-    function showMessage(message, type) {
-        messageDiv.textContent = message;
-        messageDiv.className = `message ${type}`;
-    }
 });

@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+    justify-content: center; /* 수직 정렬 */
+    height: 100vh; /* 화면 전체 높이 사용 */
+    padding: 20px; /* 적절한 여백 추가 */
+    background-color: #f8f9fa; /* 부드러운 배경색 */
+}
+
+form {
+    width: 100%;
+    max-width: 400px; /* 중앙에 고정된 크기 */
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group, .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    color: #dc3545; /* 오류 메시지 색상 */
+    font-size: 14px;
+    margin-top: -10px;
+}

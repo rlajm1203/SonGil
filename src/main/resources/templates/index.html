@@ -24,6 +24,7 @@
             color: white;
             padding: 40px 20px;
             border-radius: 8px;
+            position: relative;
         }
         header h1 {
             font-size: 2.5rem;
@@ -32,6 +33,23 @@
         header p {
             font-size: 1.2rem;
             margin: 10px 0 0;
+        }
+        .login-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            color: #ff9f43;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .login-btn:hover {
+            background-color: #ffe0b2;
         }
         .services {
             margin-top: 40px;
@@ -97,6 +115,7 @@
     <header>
         <h1>손길</h1>
         <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
+        <a class="login-btn" href="/view/login">로그인</a>
     </header>
 
     <!-- Services Section -->
@@ -115,7 +134,7 @@
     <!-- Join Section -->
     <section class="join">
         <div class="join-option">
-            <h2>노인으로 가입</h2>
+            <h2>어르신으로 가입</h2>
             <p>간단한 가입 절차로 도움을 요청하고, 필요한 일상 서비스를 받아보세요.</p>
             <button onclick="signup('elderly')">가입하기</button>
         </div>
