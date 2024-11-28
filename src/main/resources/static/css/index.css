@@ -1,0 +1,197 @@
+body {
+    font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+header {
+    text-align: center;
+    background-color: #ff9f43;
+    color: white;
+    padding: 40px 20px;
+    border-radius: 8px;
+    position: relative;
+}
+header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+header p {
+    font-size: 1.2rem;
+    margin: 10px 0 0;
+}
+.btn-group {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-group a {
+    background-color: white;
+    color: #ff9f43;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+.btn-group a:hover {
+    background-color: #ffe0b2;
+}
+.auth-btn {
+    background-color: white;
+    color: #ff9f43;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+.auth-btn:hover {
+    background-color: #ffe0b2;
+}
+.services {
+    margin-top: 40px;
+    text-align: center;
+}
+.services h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+.service {
+    background-color: white;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+.service h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #ff6f61;
+}
+.join {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+.join-option {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 400px;
+    text-align: center;
+}
+.join-option h2 {
+    font-size: 1.5rem;
+    color: #4caf50;
+}
+.join-option p {
+    font-size: 1rem;
+    margin: 10px 0 20px;
+}
+.join-option button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.join-option button:hover {
+    background-color: #388e3c;
+}
+/* 모달 배경 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+}
+
+/* 모달 컨텐츠 */
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* 화면 가운데 정렬 */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 300px; /* 너비 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* 닫기 버튼 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 로그아웃 버튼 */
+.logout-btn {
+    background-color: #ff9f43;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #e6891d;
+}
+#user-info span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#user-info a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+#user-info a:hover {
+    text-decoration: underline;
+}

@@ -40,7 +40,9 @@
             right: 20px;
             display: flex;
             gap: 10px;
+            align-items: center;
         }
+
         .btn-group a {
             background-color: white;
             color: #ff9f43;
@@ -56,6 +58,44 @@
         .btn-group a:hover {
             background-color: #ffe0b2;
         }
+
+        .auth-btn {
+            background-color: white;
+            color: #ff9f43;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .auth-btn:hover {
+            background-color: #ffe0b2;
+        }
+        .logout-btn {
+            background-color: white;
+            color: #ff9f43;
+            border: none;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ffe0b2;
+        }
+
+        #member-name {
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+        }
+
         .services {
             margin-top: 40px;
             text-align: center;
@@ -112,6 +152,21 @@
         .join-option button:hover {
             background-color: #388e3c;
         }
+        #user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #user-info a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        #user-info a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -120,15 +175,26 @@
     <header>
         <h1>손길</h1>
         <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
-        <div class="btn-group" id="auth-buttons">
-            <a href="/view/login">로그인</a>
-            <a href="/view/signup">회원가입</a>
-        </div>
-        <div class="user-info" id="user-info" style="display: none;">
-            <span id="member-name">환영합니다, 사용자!</span>
-            <a href="#" onclick="logout()" style="color: white; text-decoration: underline; margin-left: 10px;">로그아웃</a>
+        <div class="btn-group" id="auth-section">
+            <!-- 로그인 및 회원가입 버튼 -->
+            <a href="/view/login" id="login-btn" class="auth-btn">로그인</a>
+            <a href="/view/signup" id="signup-btn" class="auth-btn">회원가입</a>
+
+            <!-- 사용자 정보 표시 (초기에는 숨김) -->
+            <div id="user-info" style="display: none;">
+                <span id="member-name" onclick="openModal()" style="cursor: pointer; text-decoration: underline;"></span>
+            </div>
         </div>
     </header>
+
+    <!-- 모달 -->
+    <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal()">×</button>
+            <h2>로그아웃 하시겠습니까?</h2>
+            <button class="logout-btn" onclick="logout()">로그아웃</button>
+        </div>
+    </div>
 
     <!-- Services Section -->
     <section class="services">
@@ -157,53 +223,6 @@
 <!--        </div>-->
 <!--    </section>-->
 </div>
-<script>
-    function signup(type) {
-        if (type === 'elderly') {
-            window.location.href = '/view/elderly-signup';
-        } else if (type === 'helper') {
-            window.location.href = '/view/helper-signup';
-        }
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-        const accessToken = localStorage.getItem('accessToken');
-        const authButtons = document.getElementById('auth-buttons');
-        const userInfo = document.getElementById('user-info');
-        const memberName = document.getElementById('member-name');
-
-        if (accessToken) {
-            // accessToken이 존재하면 사용자 정보 요청
-            fetch('/api/v1/member/me', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('사용자 정보 요청 실패');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // 사용자 정보를 표시
-                    memberName.textContent = `환영합니다, ${data.data.memberName}!`;
-                    userInfo.style.display = 'block';
-                    authButtons.style.display = 'none';
-                })
-                .catch(error => {
-                    console.error('오류:', error);
-                    alert('사용자 정보를 불러오는 데 실패했습니다.');
-                });
-        }
-    });
-
-    function logout() {
-        // 로그아웃 로직: 토큰 제거 및 페이지 새로고침
-        localStorage.removeItem('accessToken');
-        alert('로그아웃 되었습니다.');
-        location.reload();
-    }
-</script>
+<script src="/js/script/token-confirm.js"></script>
 </body>
 </html>

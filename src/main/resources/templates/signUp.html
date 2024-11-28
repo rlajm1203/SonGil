@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>손길 - 생활 지원 서비스</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>손길 - 회원가입</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <style>
-        /* 전체 페이지 스타일 */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
         }
 
-        /* 컨테이너 */
         .container {
             max-width: 768px;
             margin: 0 auto;
             text-align: center;
+            padding: 20px;
         }
 
-        /* 헤더 스타일 */
         .header {
             background-color: #FFA500;
             color: white;
-            padding: 20px 15px;
+            padding: 30px 15px;
+            border-radius: 8px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 0;
         }
 
@@ -38,12 +37,11 @@
             margin: 10px 0 0 0;
         }
 
-        /* 정보 섹션 스타일 */
         .info-section {
-            padding: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
         }
 
         .info-card {
@@ -51,12 +49,13 @@
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: left;
+            width: 48%;
+            text-align: center;
         }
 
         .info-card h2 {
-            margin: 0 0 10px 0;
             font-size: 1.2rem;
+            margin-bottom: 10px;
             color: #FF7F00;
         }
 
@@ -65,11 +64,10 @@
             color: #555;
         }
 
-        /* 역할 섹션 스타일 */
         .role-section {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
+            margin-top: 30px;
             gap: 20px;
         }
 
@@ -78,26 +76,20 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex: 1;
+            width: 48%;
             text-align: center;
         }
 
-        .role-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
         .role-card h3 {
-            margin: 10px 0;
             font-size: 1.2rem;
+            margin-bottom: 10px;
             color: #333;
         }
 
         .role-card p {
             font-size: 0.9rem;
             color: #555;
-            margin: 10px 0;
+            margin-bottom: 20px;
         }
 
         .role-card button {
@@ -106,8 +98,8 @@
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .role-card button:hover {
@@ -118,33 +110,22 @@
 <body>
 <div class="container">
     <header class="header">
-        <h1>손 길</h1>
-        <p>혼자 사는 어르신들을 위한 생활 지원 서비스</p>
+        <h1>회원가입</h1>
+        <p>어르신과 도우미 중 하나를 선택하여 가입하세요.</p>
     </header>
-
-    <section class="info-section">
-        <div class="info-card">
-            <h2>생활 불편 도움 요청</h2>
-            <p>장보기, 청소, 병원 동행 등 일상에서 필요한 도움을 받을 수 있습니다.</p>
-        </div>
-        <div class="info-card">
-            <h2>안전하고 신뢰할 수 있는 도우미</h2>
-            <p>철저한 검증을 거친 도우미가 어르신들의 생활을 돕습니다.</p>
-        </div>
-    </section>
 
     <section class="role-section">
         <div class="role-card">
-            <img src="/images/elderly.png" alt="어르신 아이콘" class="role-icon">
+            <img src="/images/elderly.png" alt="어르신 가입" class="info-image">
             <h3>어르신</h3>
             <p>간단한 가입 절차로 도움을 요청하고 필요한 서비스를 받아보세요.</p>
-            <button>가입하기</button>
+            <button onclick="location.href='/view/elderly-signup'">가입하기</button>
         </div>
         <div class="role-card">
-            <img src="/images/helper.png" alt="도우미 아이콘" class="role-icon">
+            <img src="/images/helper.png" alt="어르신 가입" class="info-image">
             <h3>도우미</h3>
             <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>
-            <button>가입하기</button>
+            <button onclick="location.href='/view/helper-signup'">가입하기</button>
         </div>
     </section>
 </div>
