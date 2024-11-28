@@ -93,6 +93,7 @@ public class MemberService implements
 
     @Override
     public void duplicationCheck(String loginId) {
+        loginId = loginId.replace("\"", "");
         Optional<Member>  member = memberRepository.findByLoginId(loginId);
 
         if(member.isPresent()) throw new RuntimeException("사용할 수 없는 아이디입니다.");
