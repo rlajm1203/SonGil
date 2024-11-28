@@ -1,61 +1,100 @@
+body {
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 가운데 정렬 */
-    justify-content: center; /* 수직 정렬 */
-    height: 100vh; /* 화면 전체 높이 사용 */
-    padding: 20px; /* 적절한 여백 추가 */
-    background-color: #f8f9fa; /* 부드러운 배경색 */
-}
-
-form {
+    max-width: 400px;
     width: 100%;
-    max-width: 400px; /* 중앙에 고정된 크기 */
-    padding: 20px;
-    border: 1px solid #dee2e6;
+    background: #ffffff;
     border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
 
-.input-group, .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+.header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-label {
+.header h1 {
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
+    color: #FF8C00;
+    margin: 0;
 }
 
-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
+.header p {
+    font-size: 14px;
+    color: #555555;
+    margin-top: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+    box-sizing: border-box;
+    outline: none;
 }
 
-button {
+.form-group input:focus {
+    border-color: #FF8C00;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.form-actions button {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
+    padding: 12px 0;
+    background-color: #FF8C00;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.form-actions button:hover {
+    background-color: #e67e00;
 }
 
-.message {
-    color: #dc3545; /* 오류 메시지 색상 */
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
     font-size: 14px;
-    margin-top: -10px;
+}
+
+.form-footer a {
+    color: #FF8C00;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
 }
