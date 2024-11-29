@@ -3,6 +3,7 @@ package com.jnu.mcd.ddobagi.domains.help.persistence;
 
 import com.jnu.mcd.ddobagi.common.persistence.BaseEntity;
 import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpRequest;
+import com.jnu.mcd.ddobagi.domains.help.application.model.HelpCategory;
 import com.jnu.mcd.ddobagi.domains.help.application.model.HelpStatus;
 import com.jnu.mcd.ddobagi.domains.help.application.model.HelpType;
 import jakarta.persistence.Column;
@@ -64,6 +65,10 @@ public class Help extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private HelpType helpType;
 
+    @Column(name = ENTITY_PREFIX + "_category", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private HelpCategory category;
+
     @Column(name = ENTITY_PREFIX + "_status", nullable = false)
     @Builder.Default
     private HelpStatus helpStatus = HelpStatus.NON_MATCH;
@@ -80,6 +85,7 @@ public class Help extends BaseEntity {
                 .address(request.address())
                 .weeks(weekToString(request.dayOfWeek()))
                 .title(request.title())
+                .category(request.category())
                 .build();
     }
 

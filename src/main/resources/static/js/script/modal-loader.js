@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = {
                 helpType,
                 dayOfWeek: selectedDays,
-                helpCategory : selectedCategory,
+                category : selectedCategory,
                 title,
                 address,
                 content,
