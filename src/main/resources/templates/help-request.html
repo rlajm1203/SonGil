@@ -78,7 +78,7 @@
       font-size: 0.9rem;
     }
 
-    .form-group input {
+    .form-group input, .form-group select {
       width: 100%;
       padding: 10px;
       font-size: 0.9rem;
@@ -87,8 +87,24 @@
       box-sizing: border-box;
     }
 
-    .form-group input:focus {
+    .form-group input:focus, .form-group select:focus {
       border-color: #ff9f43;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+    }
+
+    .checkbox-group input {
+      margin-right: 5px;
     }
   </style>
 </head>
@@ -99,11 +115,38 @@
 </div>
 
 <!-- 메인 모달 -->
-<div id="main-modal" class="modal">
+<div id="once-help-main-modal" class="modal">
   <div class="modal-content">
     <h2>어떤 도움을 요청하시겠습니까?</h2>
-    <button onclick="openOnceModal()">도움 한 번 요청하기</button>
+    <button onclick="openDetailsModal()">도움 한 번 요청하기</button>
     <button onclick="alert('장기 도움 요청하기는 아직 구현되지 않았습니다.')">장기 도움 요청하기</button>
+  </div>
+</div>
+
+<!-- 세부사항 모달 -->
+<div id="help-details-modal" class="modal">
+  <div class="modal-content">
+    <h2>세부사항 선택</h2>
+    <form id="details-form">
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="dayOfWeek" value="월"> 월</label>
+        <label><input type="checkbox" name="dayOfWeek" value="화"> 화</label>
+        <label><input type="checkbox" name="dayOfWeek" value="수"> 수</label>
+        <label><input type="checkbox" name="dayOfWeek" value="목"> 목</label>
+        <label><input type="checkbox" name="dayOfWeek" value="금"> 금</label>
+        <label><input type="checkbox" name="dayOfWeek" value="토"> 토</label>
+        <label><input type="checkbox" name="dayOfWeek" value="일"> 일</label>
+      </div>
+      <div class="form-group">
+        <label for="category">도움 카테고리</label>
+        <select id="category" name="category" required>
+          <option value="청소">청소</option>
+          <option value="장보기">장보기</option>
+          <option value="병원 동행">병원 동행</option>
+        </select>
+      </div>
+      <button type="button" onclick="openOnceModal()">다음</button>
+    </form>
   </div>
 </div>
 
@@ -132,68 +175,5 @@
     </form>
   </div>
 </div>
-
-<script>
-  // 메인 모달 열기
-  function openMainModal() {
-    document.getElementById('main-modal').classList.add('active');
-  }
-
-  // 메인 모달 닫기
-  function closeMainModal() {
-    document.getElementById('main-modal').classList.remove('active');
-  }
-
-  // 도움 한 번 요청하기 모달 열기
-  function openOnceModal() {
-    closeMainModal();
-    document.getElementById('once-modal').classList.add('active');
-  }
-
-  // 도움 한 번 요청하기 모달 닫기
-  function closeOnceModal() {
-    document.getElementById('once-modal').classList.remove('active');
-  }
-
-  // 도움 요청하기 폼 제출 처리
-  document.getElementById('help-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const helpType = 'once';
-    const title = document.getElementById('title').value;
-    const address = document.getElementById('address').value;
-    const content = document.getElementById('content').value;
-    const price = parseInt(document.getElementById('price').value, 10);
-
-    const data = {
-      helpType,
-      dayOfWeek: ["월", "화", "수"], // 고정값으로 설정
-      title,
-      address,
-      content,
-      price
-    };
-
-    fetch('http://localhost:8080/api/v1/helps', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-            .then(response => {
-              if (!response.ok) throw new Error('요청 실패');
-              return response.json();
-            })
-            .then(result => {
-              alert('도움 요청이 성공적으로 등록되었습니다.');
-              closeOnceModal(); // 모달 닫기
-            })
-            .catch(error => {
-              console.error('오류:', error);
-              alert('도움 요청에 실패했습니다. 다시 시도해주세요.');
-            });
-  });
-</script>
 </body>
 </html>

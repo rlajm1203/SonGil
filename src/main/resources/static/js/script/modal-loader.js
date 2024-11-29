@@ -1,3 +1,41 @@
+let selectedDays = [];
+let selectedCategory = null;
+
+// 요일 선택/해제
+function toggleDay(element) {
+    const day = element.innerText;
+    if (selectedDays.includes(day)) {
+        selectedDays = selectedDays.filter(d => d !== day); // 선택 해제
+        element.classList.remove('selected');
+    } else {
+        selectedDays.push(day); // 선택
+        element.classList.add('selected');
+    }
+}
+
+// 도움 카테고리 선택
+function selectCategory(element) {
+    // 이전에 선택된 카테고리 해제
+    const previous = document.querySelector('.category.selected');
+    if (previous) previous.classList.remove('selected');
+
+    // 현재 선택된 카테고리 설정
+    selectedCategory = element.innerText;
+    element.classList.add('selected');
+}
+
+// 다음 단계로 이동
+function proceedToOnceModal() {
+    if (selectedDays.length === 0 || !selectedCategory) {
+        alert('요일과 도움 종류를 선택해주세요.');
+        return;
+    }
+
+    // 다음 모달 열기
+    closeDetailsModal();
+    openOnceModal();
+}
+
 // 모달 로드 함수
 function loadModal(modalId, filePath) {
     fetch(filePath)
@@ -28,7 +66,7 @@ function loadCSS(filePath) {
 function initializeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'none';
+        modal.style.display = 'none'; // 초기 상태 설정
 
         // 화면 아무 곳이나 클릭하면 모달 닫기
         modal.addEventListener('click', (event) => {
@@ -36,28 +74,73 @@ function initializeModal(modalId) {
                 closeModal(modalId);
             }
         });
+    } else {
+        console.error(`모달 초기화 실패: ${modalId}를 찾을 수 없습니다.`);
     }
 }
 
-// 모달 열기/닫기 함수
+// 메인 모달 열기
 function openMainModal() {
-    document.getElementById('once-help-main-modal').style.display = 'flex';
+    const modal = document.getElementById('once-help-main-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    } else {
+        console.error('Main Modal을 찾을 수 없습니다.');
+    }
 }
 
+// 메인 모달 닫기
+function closeMainModal() {
+    const modal = document.getElementById('once-help-main-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    } else {
+        console.error('Main Modal을 찾을 수 없습니다.');
+    }
+}
+
+// 세부사항 모달 열기
+function openDetailsModal() {
+    closeMainModal();
+    const modal = document.getElementById('help-details-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    } else {
+        console.error('Details Modal을 찾을 수 없습니다.');
+    }
+}
+
+function closeDetailsModal() {
+    const detailModal = document.getElementById('help-details-modal');
+    detailModal.classList.remove('active');
+    detailModal.style.display = 'none';
+}
+// 도움 한 번 요청하기 모달 열기
 function openOnceModal() {
-    document.getElementById('once-help-main-modal').style.display = 'none';
-    document.getElementById('once-modal').style.display = 'flex';
+    closeDetailsModal();
+    const modal = document.getElementById('once-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+    } else {
+        console.error('Once Modal을 찾을 수 없습니다.');
+    }
 }
 
-function closeModal(modalId) {
+function closeModal(modalId){
     document.getElementById(modalId).style.display = 'none';
+}
+
+function closeOnceModal() {
+    document.getElementById('once-modal').classList.remove('active');
 }
 
 // 도움 요청하기 폼 처리
 document.addEventListener('DOMContentLoaded', () => {
     loadCSS('/css/modals/help-request-modal.css');
+    loadCSS('/css/modals/help-details-modal.css');
     loadModal('once-help-main-modal', '/html/modals/once-help-main-modal.html');
     loadModal('once-modal', '/html/modals/once-help-request-modal.html');
+    loadModal('help-details-modal', '/html/modals/help-details-modal.html'); // 파일 경로 확인
 
     document.body.addEventListener('submit', event => {
         if (event.target.id === 'help-form') {
@@ -68,10 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const address = document.getElementById('address').value;
             const content = document.getElementById('content').value;
             const price = parseInt(document.getElementById('price').value, 10);
+            const accessToken = localStorage.getItem("accessToken");
+
+            if(!accessToken){
+                alert("로그인이 필요합니다.")
+                return;
+            }
 
             const data = {
                 helpType,
-                dayOfWeek: ["월", "화", "수"], // 고정값
+                dayOfWeek: selectedDays,
+                helpCategory : selectedCategory,
                 title,
                 address,
                 content,
@@ -82,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(data)
             })
