@@ -40,5 +40,10 @@ public class ViewController {
         return "login.html";
     }
 
+    @GetMapping(VIEW + "/help-list")
+    public String helpList(){
+        return "help-list.html";
+    }
+
 
 }

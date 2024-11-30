@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도움 요청 리스트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #ff6f61;
+        }
+
+        .help-list {
+            margin-top: 30px;
+        }
+
+        .help-item {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .help-item h3 {
+            font-size: 1.5rem;
+            color: #ff6f61;
+            margin-bottom: 10px;
+        }
+
+        .help-item .content {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .help-item .help-type,
+        .help-item .help-category {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .help-item .help-type {
+            background-color: #ff9f43;
+            color: white;
+        }
+
+        .help-item .help-category {
+            background-color: #7bed9f;
+            color: #2c3e50;
+        }
+
+        .help-item p {
+            margin: 5px 0;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: #ff9f43;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-container"></div>
+    <div class="header">
+        <h1>도움 요청 리스트</h1>
+    </div>
+
+    <div class="help-list" id="help-list">
+        <!-- 도움 리스트가 여기에 동적으로 렌더링됩니다 -->
+    </div>
+
+    <div class="pagination" id="pagination">
+        <!-- 페이지네이션 버튼 -->
+    </div>
+</div>
+<script src="/js/script/header.js"></script>
+<script src="/js/script/help/help-list.js" defer></script>
+<script src="/js/script/footer/footer-loader.js" defer></script>
+</body>
+</html>

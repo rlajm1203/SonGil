@@ -29,7 +29,6 @@ public class AuthInfoInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        
         String token = tokenExtractor.extract( request );
         Long memberId = tokenResolver.getUserDataByAccessToken(token);
 

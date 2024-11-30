@@ -16,12 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
 function initializeHeader() {
     const accessToken = localStorage.getItem('accessToken');
     const loginBtn = document.getElementById('login-btn');
+    const accessTokenExpiredTime = localStorage.getItem('accessExpiredTime');
     const signupBtn = document.getElementById('signup-btn');
     const userInfo = document.getElementById('user-info');
     const memberName = document.getElementById('member-name');
 
+    // 토큰 만료 확인 및 재발급 요청
+    if (accessToken && accessTokenExpiredTime) {
+        const currentTime = new Date().getTime();
+        const expiredTime = parseInt(accessTokenExpiredTime);
+
+        // 토큰이 곧 만료되거나 이미 만료된 경우
+        if (currentTime >= expiredTime) {
+            reissueToken();
+            return;
+        }
+    }
+
     // 토큰 확인 및 사용자 정보 로드
-    if (accessToken) {
+    if (accessToken && accessTokenExpiredTime) {
         fetch('/api/v1/member/me', {
             method: 'GET',
             headers: {
@@ -40,13 +53,48 @@ function initializeHeader() {
             })
             .catch(error => {
                 console.error('사용자 정보 로드 오류:', error);
-                alert('사용자 정보를 불러오는 데 실패했습니다.');
             });
     } else {
         loginBtn.style.display = 'block';
         signupBtn.style.display = 'block';
         userInfo.style.display = 'none';
     }
+}
+
+function reissueToken() {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!refreshToken) {
+        // 리프레시 토큰 없으면 로그아웃 처리
+        logout();
+        return;
+    }
+
+    fetch('http://localhost:8080/api/v1/auth/reissue', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('토큰 재발급 실패');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 새로운 토큰 정보 저장
+            localStorage.setItem('accessToken', data.data.accessToken);
+            localStorage.setItem('accessTokenExpiredTime', data.data.accessExpiredTime);
+
+            // 헤더 다시 초기화
+            initializeHeader();
+        })
+        .catch(error => {
+            console.error('토큰 재발급 오류:', error);
+            // 재발급 실패 시 로그아웃 처리
+            logout();
+        });
 }
 
 function toggleModal() {

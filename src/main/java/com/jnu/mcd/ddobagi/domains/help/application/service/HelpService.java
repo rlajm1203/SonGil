@@ -3,14 +3,20 @@ package com.jnu.mcd.ddobagi.domains.help.application.service;
 import com.jnu.mcd.ddobagi.common.event.Events;
 import com.jnu.mcd.ddobagi.common.interfaces.RequesterInfo;
 import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpRequest;
-import com.jnu.mcd.ddobagi.domains.help.application.dto.OnceHelpResponse;
+import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpResponse;
 import com.jnu.mcd.ddobagi.domains.help.application.event.HelpMappingEvent;
 import com.jnu.mcd.ddobagi.domains.help.persistence.Help;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping.HelpMappingId;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMappingRepository;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,12 +27,12 @@ public class HelpService {
     private final HelpMappingRepository helpMappingRepository;
     private final RequesterInfo requesterInfo;
 
-    public OnceHelpResponse getHelp(Long helpId){
+    public HelpResponse getHelp(Long helpId){
         Help help = helpRepository.findById(helpId).orElse(null);
 
         if(help == null) throw new RuntimeException("Help not found");
 
-        return OnceHelpResponse.from(help);
+        return HelpResponse.from(help);
     }
 
     public Long createHelp(HelpRequest request){
@@ -51,6 +57,14 @@ public class HelpService {
         Events.raise(new HelpMappingEvent(memberId, helpId));
 
         return helpId;
+    }
+
+    public List<Help> getHelpPage(int page, int size, String sortType){
+        Sort.Order sortOrder = new Order(Direction.ASC, "createdDate");
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortOrder));
+
+        return helpRepository.findAll(pageable).stream().toList();
     }
     
 

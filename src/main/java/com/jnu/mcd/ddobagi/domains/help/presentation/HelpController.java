@@ -6,8 +6,11 @@ import com.jnu.mcd.ddobagi.common.presentation.response.ApiResponseBody;
 import com.jnu.mcd.ddobagi.common.presentation.response.ApiResponseGenerator;
 import com.jnu.mcd.ddobagi.common.presentation.response.MessageCode;
 import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpRequest;
-import com.jnu.mcd.ddobagi.domains.help.application.dto.OnceHelpResponse;
+import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpResponse;
+import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpResponses;
 import com.jnu.mcd.ddobagi.domains.help.application.service.HelpService;
+import com.jnu.mcd.ddobagi.domains.help.persistence.Help;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,22 +41,25 @@ public class HelpController {
     }
 
     @GetMapping("/{helpId}")
-    public ApiResponse<ApiResponseBody.SuccessBody<OnceHelpResponse>> getHelp(
+    public ApiResponse<ApiResponseBody.SuccessBody<HelpResponse>> getHelp(
             @PathVariable("helpId") Long helpId
     ){
-        OnceHelpResponse response = helpService.getHelp(helpId);
+        HelpResponse response = helpService.getHelp(helpId);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.GET);
     }
 
     @GetMapping
-    public ApiResponse<ApiResponseBody.SuccessBody<Void>> getHelps(
+    public ApiResponse<ApiResponseBody.SuccessBody<HelpResponses>> getHelps(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size
     ){
 
+        List<Help> helps = helpService.getHelpPage(page, size, null);
+        List<HelpResponse> helpToResponse = helps.stream().map(HelpResponse::from).toList();
+
         //TODO: 조회 작성
-        return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.GET);
+        return ApiResponseGenerator.success(new HelpResponses(helpToResponse), HttpStatus.OK, MessageCode.GET);
     }
 
 }
