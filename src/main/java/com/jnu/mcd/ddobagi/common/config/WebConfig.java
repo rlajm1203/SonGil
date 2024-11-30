@@ -46,8 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/images/**",
                         "/css/**",
                         "/html/**",
-                        "/")
-                .excludePathPatterns(HttpMethod.GET.name(), "/api/v1/helps");
+                        "/");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 
