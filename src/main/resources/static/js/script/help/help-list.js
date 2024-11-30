@@ -5,8 +5,12 @@ const pageSize = 5;  // 페이지당 항목 수
 // 도움 요청 리스트 불러오기
 function fetchHelpList(page, size) {
     const url = `${apiUrl}?page=${page}&size=${size}`;
-    // const accessToken = localStorage.getItem("accessToken");
-    fetch(url)
+    const accessToken = localStorage.getItem("accessToken");
+    fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error("API 호출 실패");
