@@ -19,7 +19,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             if (!response.ok) {
                 message = response_data.message;
                 console.log(message)
-                throw new Error(message.toString());
+                throw new Error("아이디 또는 비밀번호가 틀렸습니다.");
             }
             return response_data;
         })
