@@ -10,6 +10,7 @@ import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping.HelpMappingId;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMappingRepository;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -60,9 +61,10 @@ public class HelpService {
     }
 
     public List<Help> getHelpPage(int page, int size, String sortType){
-        Sort.Order sortOrder = new Order(Direction.ASC, "createdDate");
+        List<Sort.Order> orders = new ArrayList<>();
+        orders.add(Sort.Order.asc("updatedDate"));
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortOrder));
+        Pageable pageable = PageRequest.of(page-1, size, Sort.by(orders));
 
         return helpRepository.findAll(pageable).stream().toList();
     }
