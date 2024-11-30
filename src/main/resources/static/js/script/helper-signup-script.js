@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("http://localhost:8080/api/v1/auth/dupl-check", {
+        fetch("/api/v1/auth/dupl-check", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // 회원가입 요청 전송
-        fetch("http://localhost:8080/api/v1/auth/signup", {
+        fetch("/api/v1/auth/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

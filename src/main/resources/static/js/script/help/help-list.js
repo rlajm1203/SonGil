@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8080/api/v1/helps";
+const apiUrl = "/api/v1/helps";
 let currentPage = 1; // 현재 페이지 번호
 const pageSize = 5;  // 페이지당 항목 수
 
