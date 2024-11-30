@@ -3,6 +3,7 @@ package com.jnu.mcd.ddobagi.common.config.interceptor;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,8 +24,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                         "/images/**",
                         "/css/**",
                         "/static/**",
-                        "/html/**",
-                        "/api/v1/helps");
+                        "/html/**"g)
+                .excludePathPatterns(HttpMethod.GET.name(), "/api/v1/helps");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
