@@ -79,5 +79,9 @@ function renderPagination(currentPage, isLastPage) {
 
 // 초기 로드
 document.addEventListener("DOMContentLoaded", () => {
+    if(!localStorage.getItem("accessToken")){
+        alert("로그인이 필요합니다.");
+        window.location="/";
+    }
     fetchHelpList(currentPage, pageSize);
 });

@@ -14,9 +14,14 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         body: JSON.stringify(loginData)
     })
         .then(response => {
+            const response_data = response.json();
 
-            if (!response.ok) throw new Error('로그인 실패');
-            return response.json();
+            if (!response.ok) {
+                message = response_data.message;
+                console.log(message)
+                throw new Error(message.toString());
+            }
+            return response_data;
         })
         .then(data => {
             // 'data' 객체 내부에 접근
@@ -35,7 +40,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             }
         })
         .catch(error => {
-            alert('로그인에 실패했습니다. 다시 시도해주세요.');
+            alert(error.message);
             console.error('오류:', error);
         });
 });
