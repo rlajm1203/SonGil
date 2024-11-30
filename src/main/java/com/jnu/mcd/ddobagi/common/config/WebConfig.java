@@ -1,12 +1,15 @@
 package com.jnu.mcd.ddobagi.common.config;
 
+import com.jnu.mcd.ddobagi.common.config.interceptor.AuthInfoInterceptor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -20,15 +23,35 @@ public class WebConfig implements WebMvcConfigurer {
             "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH";
 
 
-
+    private final AuthInfoInterceptor authInfoInterceptor;
 
     public WebConfig(
-            @Value("${cors.allow-origin.urls}") final String allowOriginUrlPatterns) {
+            @Value("${cors.allow-origin.urls}") final String allowOriginUrlPatterns,
+            AuthInfoInterceptor authInfoInterceptor) {
         this.allowOriginUrlPatterns =
                 Arrays.stream(allowOriginUrlPatterns.split(","))
                         .map(String::trim)
                         .collect(Collectors.toList());
+        this.authInfoInterceptor = authInfoInterceptor;
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor( authInfoInterceptor )
+                .addPathPatterns( "/**" )
+                .excludePathPatterns(d
+                        "/api/v1/auth/**",
+                        "/js/**",
+                        "/view/**",
+                        "/images/**",
+                        "/css/**",
+                        "/html/**"
+                        "/")
+                .excludePathPatterns(HttpMethod.GET.name(), "/api/v1/helps");
+        WebMvcConfigurer.super.addInterceptors(registry);
+    }
+
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
