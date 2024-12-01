@@ -4,13 +4,15 @@ import java.util.Arrays;
 
 public enum HelpType {
 
-    ONCE("once"),
-    REGULRAY("regulary");
+    ONCE("once", "단기"),
+    REGULRAY("regulary", "장기");
 
     private String type;
+    private String koType;
 
-    HelpType(String type) {
+    HelpType(String type, String koType) {
         this.type = type;
+        this.koType = koType;
     }
 
     public static HelpType fromString(String type) {
@@ -22,7 +24,7 @@ public enum HelpType {
 
     @Override
     public String toString() {
-        return type;
+        return koType;
     }
 
 }
