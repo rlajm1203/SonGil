@@ -1,6 +1,8 @@
 <!-- header.html -->
 <header>
-  <h1>손길</h1>
+  <h1 onclick="toIndexPage()">
+    <a href="/" style="text-decoration: none; color: inherit;">손길</a>
+  </h1>
   <p>혼자 사는 어르신을 위한 생활 지원 서비스</p>
   <div class="btn-group" id="auth-section">
     <!-- 로그인 및 회원가입 버튼 -->
@@ -19,3 +21,8 @@
     </div>
   </div>
 </header>
+<script>
+  function toIndexPage(){
+    window.location="/index";
+  }
+</script>

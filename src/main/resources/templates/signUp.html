@@ -20,13 +20,6 @@
             padding: 20px;
         }
 
-        .header {
-            background-color: #FFA500;
-            color: white;
-            padding: 30px 15px;
-            border-radius: 8px;
-        }
-
         .header h1 {
             font-size: 2rem;
             margin: 0;
@@ -108,26 +101,25 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header class="header">
-        <h1>회원가입</h1>
-        <p>어르신과 도우미 중 하나를 선택하여 가입하세요.</p>
-    </header>
 
-    <section class="role-section">
-        <div class="role-card">
-            <img src="/images/elderly.png" alt="어르신 가입" class="info-image">
-            <h3>어르신</h3>
-            <p>간단한 가입 절차로 도움을 요청하고 필요한 서비스를 받아보세요.</p>
-            <button onclick="location.href='/view/elderly-signup'">가입하기</button>
-        </div>
-        <div class="role-card">
-            <img src="/images/helper.png" alt="어르신 가입" class="info-image">
-            <h3>도우미</h3>
-            <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>
-            <button onclick="location.href='/view/helper-signup'">가입하기</button>
-        </div>
-    </section>
-</div>
+    <div class="container">
+        <div class="header-container"></div>
+        <section class="role-section">
+            <div class="role-card">
+                <img src="/images/elderly.png" alt="어르신 가입" class="info-image">
+                <h3>어르신</h3>
+                <p>간단한 가입 절차로 도움을 요청하고 필요한 서비스를 받아보세요.</p>
+                <button onclick="location.href='/view/elderly-signup'">가입하기</button>
+            </div>
+            <div class="role-card">
+                <img src="/images/helper.png" alt="어르신 가입" class="info-image">
+                <h3>도우미</h3>
+                <p>어르신을 돕고, 지역 사회에 기여할 수 있는 기회를 누려보세요.</p>
+                <button onclick="location.href='/view/helper-signup'">가입하기</button>
+            </div>
+        </section>
+    </div>
+<script src="/js/script/header.js"></script>
+<script src="/js/script/footer/footer-loader.js"></script>
 </body>
 </html>

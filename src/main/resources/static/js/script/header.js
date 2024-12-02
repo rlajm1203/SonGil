@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
             initializeHeader(); // 헤더 로드 후 초기화 함수 호출
         })
         .catch(error => console.error('헤더 로드 오류:', error));
+
+    loadFavicon('/images/favicon-96x96.png');
 });
 
 function initializeHeader() {
@@ -124,6 +126,24 @@ function loadCSS(cssFilePath) {
     link.rel = 'stylesheet';
     link.href = cssFilePath;
     link.type = 'text/css';
+    // <head>에 추가
+    document.head.appendChild(link);
+}
+
+// Favicon 파일을 동적으로 추가하는 함수
+function loadFavicon(faviconPath) {
+    // 기존 favicon이 있다면 삭제
+    const existingFavicon = document.querySelector("link[rel='icon']");
+    if (existingFavicon) {
+        existingFavicon.remove();
+    }
+
+    // <link> 요소 생성
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = faviconPath;
+    link.type = 'image/x-icon';
+
     // <head>에 추가
     document.head.appendChild(link);
 }
