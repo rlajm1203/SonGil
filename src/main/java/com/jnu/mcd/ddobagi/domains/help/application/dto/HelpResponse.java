@@ -5,6 +5,7 @@ import com.jnu.mcd.ddobagi.domains.help.application.model.HelpType;
 import com.jnu.mcd.ddobagi.domains.help.persistence.Help;
 
 public record HelpResponse(
+        Long helpId,
         String helpType,
         String helpCategory,
         String title,
@@ -16,6 +17,7 @@ public record HelpResponse(
 
     public static HelpResponse from(Help help){
         return new HelpResponse(
+                help.getHelpId(),
                 help.getHelpType().toString(),
                 help.getCategory().toString(),
                 help.getTitle(),
