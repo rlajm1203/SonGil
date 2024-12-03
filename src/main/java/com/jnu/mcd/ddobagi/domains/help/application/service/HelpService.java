@@ -68,7 +68,22 @@ public class HelpService {
 
         return helpRepository.findAll(pageable).stream().toList();
     }
-    
+
+
+    public List<Help> getMyHelp(int page, int size){
+        List<Sort.Order> orders = new ArrayList<>();
+        orders.add(Sort.Order.asc("updatedDate"));
+        Pageable pageable = PageRequest.of(page-1, size, Sort.by(orders));
+
+        List<Long> helpIds = helpMappingRepository.findAll().stream()
+                .map(helpMapping -> helpMapping.getId().getHelpId())
+                .toList();
+
+
+        List<Help> helps = helpRepository.findAllById(helpIds);
+
+        return helps;
+    }
 
 
 }
