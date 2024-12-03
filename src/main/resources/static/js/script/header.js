@@ -99,7 +99,7 @@ function reissueToken() {
         });
 }
 
-function toggleModal() {
+function logoutModal() {
     const modal = document.getElementById('logout-modal');
     modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
 }
