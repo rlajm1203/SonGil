@@ -71,11 +71,13 @@ public class HelpService {
 
 
     public List<Help> getMyHelp(int page, int size){
+        Long memberId = requesterInfo.getMemberId();
+
         List<Sort.Order> orders = new ArrayList<>();
         orders.add(Sort.Order.asc("updatedDate"));
         Pageable pageable = PageRequest.of(page-1, size, Sort.by(orders));
 
-        List<Long> helpIds = helpMappingRepository.findAll().stream()
+        List<Long> helpIds = helpMappingRepository.findAllByMemberId(pageable, memberId).stream()
                 .map(helpMapping -> helpMapping.getId().getHelpId())
                 .toList();
 
