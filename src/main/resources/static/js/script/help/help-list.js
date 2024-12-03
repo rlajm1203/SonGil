@@ -88,13 +88,16 @@ async function assistHelp(helpId) {
             }
         });
 
-        if (!response.ok) throw new Error("도와주기 요청 실패");
+        if (!response.ok) {
+            const data = response.json();
+            throw new Error(data.message);
+        }
 
         alert("도와주기 요청이 성공적으로 처리되었습니다.");
         fetchHelpList(currentPage, pageSize); // 리스트 갱신
     } catch (error) {
         console.error("도와주기 요청 오류:", error);
-        alert("도와주기 요청에 실패했습니다. 다시 시도해주세요.");
+        alert("도와주기 요청 실패");
     }
 }
 
@@ -233,7 +236,7 @@ function fetchMyHelpList(page, size) {
                 const totalPages = Math.ceil(totalItems / size);
                 openModal(data.data.responses, totalPages);
             } else {
-                alert('도움 리스트를 불러오는데 실패했습니다.');
+                alert(data.message);
             }
         })
         .catch(error => {

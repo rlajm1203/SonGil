@@ -5,6 +5,7 @@ import com.jnu.mcd.ddobagi.common.interfaces.RequesterInfo;
 import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpRequest;
 import com.jnu.mcd.ddobagi.domains.help.application.dto.HelpResponse;
 import com.jnu.mcd.ddobagi.domains.help.application.event.HelpMappingEvent;
+import com.jnu.mcd.ddobagi.domains.help.application.model.HelpStatus;
 import com.jnu.mcd.ddobagi.domains.help.persistence.Help;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping;
 import com.jnu.mcd.ddobagi.domains.help.persistence.HelpMapping.HelpMappingId;
@@ -43,6 +44,7 @@ public class HelpService {
     }
 
     public Long match(Long helpId){
+        matchValidate(helpId);
         Long memberId = requesterInfo.getMemberId();
 
         HelpMapping helpMapping = HelpMapping.builder()
@@ -52,12 +54,18 @@ public class HelpService {
         try {
             helpMappingRepository.save(helpMapping);
         } catch (Exception e) {
-
         }
 
         Events.raise(new HelpMappingEvent(memberId, helpId));
 
         return helpId;
+    }
+
+    private void matchValidate(Long helpId) {
+        Help help = helpRepository.findById(helpId).orElse(null);
+
+        assert help != null;
+        if(help.getHelpStatus()!=HelpStatus.NON_MATCH) throw new RuntimeException("이미 매칭된 도움은 도와줄 수 없습니다.");
     }
 
     public List<Help> getHelpPage(int page, int size, String sortType){
