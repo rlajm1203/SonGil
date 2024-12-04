@@ -71,6 +71,7 @@ public class Help extends BaseEntity {
 
     @Column(name = ENTITY_PREFIX + "_status", nullable = false)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private HelpStatus helpStatus = HelpStatus.NON_MATCH;
 
     @Column(name = ENTITY_PREFIX + "_week", nullable = true)
